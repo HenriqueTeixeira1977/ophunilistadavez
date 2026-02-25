@@ -35,7 +35,7 @@ include_once __DIR__ . '/../includes/auth.php';
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../dashboard.php">
+            <a class="navbar-brand" href="../index.php">
                 <i class="bi bi-graph-up"></i> OPHICINA Unimart
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
@@ -46,7 +46,7 @@ include_once __DIR__ . '/../includes/auth.php';
                 <ul class="navbar-nav me-auto">
                     <?php if(isAdmin()): ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="dashboard.php">
+                            <a class="nav-link" href="index.php">
                                 <i class="bi bi-speedometer2"></i> Painel Geral
                             </a>
                         </li>
