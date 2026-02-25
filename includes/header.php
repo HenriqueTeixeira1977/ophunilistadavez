@@ -51,7 +51,7 @@ include_once __DIR__ . '/../includes/auth.php';
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/ophunilistadavez/pages/ranking/index.php">
+                            <a class="nav-link" href="../pages/ranking/index.php">
                                 <i class="bi bi-trophy"></i> Ranking
                             </a>                
                         </li>
