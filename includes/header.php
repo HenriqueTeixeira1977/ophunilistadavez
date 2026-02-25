@@ -46,7 +46,7 @@ include_once __DIR__ . '/../includes/auth.php';
                 <ul class="navbar-nav me-auto">
                     <?php if(isAdmin()): ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="/ophunilistadavez/dashboard.php">
+                            <a class="nav-link" href="../dashboard.php">
                                 <i class="bi bi-speedometer2"></i> Painel Geral
                             </a>
                         </li>
@@ -58,18 +58,18 @@ include_once __DIR__ . '/../includes/auth.php';
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-bullseye"></i> Metas</a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li><a class="dropdown-item" href="/ophunilistadavez/pages/metas/index.php">Painel Geral</a></li>
-                                <li><a class="dropdown-item" href="/ophunilistadavez/pages/metas/importar.php">Importar Metas</a></li>
+                                <li><a class="dropdown-item" href="../pages/metas/index.php">Painel Geral</a></li>
+                                <li><a class="dropdown-item" href="../pages/metas/importar.php">Importar Metas</a></li>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>
                         </li>                                        
                         <li class="nav-item">
-                            <a class="nav-link" href="/ophunilistadavez/pages/vendedores/index.php">
+                            <a class="nav-link" href="../pages/vendedores/index.php">
                                 <i class="bi bi-people"></i> Vendedores
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/ophunilistadavez/pages/listadavez/index.php">
+                            <a class="nav-link" href="../pages/listadavez/index.php">
                                 <i class="bi bi-list-ol"></i> Lista da Vez
                             </a>
                         </li>
@@ -80,12 +80,12 @@ include_once __DIR__ . '/../includes/auth.php';
                     
                     <?php if(isVendedor()): ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="/ophunilistadavez/vendedor_dashboard.php">
+                            <a class="nav-link" href="../vendedor_dashboard.php">
                                 <i class="bi bi-person-circle"></i> Meu Painel
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/ophunilistadavez/pages/listadavez/index.php">
+                            <a class="nav-link" href="../pages/listadavez/index.php">
                                 <i class="bi bi-list-ol"></i> Lista da Vez
                             </a>
                         </li>
