@@ -85,7 +85,7 @@ include_once __DIR__ . '/../includes/auth.php';
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../ophunilistadavez/pages/listadavez/index.php">
+                            <a class="nav-link" href="../../pages/listadavez/index.php">
                                 <i class="bi bi-list-ol"></i> Lista da Vez
                             </a>
                         </li>
