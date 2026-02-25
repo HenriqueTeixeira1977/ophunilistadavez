@@ -51,6 +51,52 @@ $comissao = $faturamento * 0.01;
 
 <div class="container p-3">
     <h5 class="mb-3">📊 Meu Desempenho</h5>
+<!--  =========  FILTRO POR PERIODO  =========  -->
+<?php
+    $inicio = $_GET['inicio'] ?? date('Y-m-01');
+    $fim = $_GET['fim'] ?? date('Y-m-t');
+
+    if(isset($_GET['periodo'])){
+        $ano = date('Y');
+        $mes = date('m');
+        $ultimoDia = date('t');
+
+        if($_GET['periodo'] == 'dezena1'){
+            $inicio = "$ano-$mes-01";
+            $fim = "$ano-$mes-10";
+        }
+
+        if($_GET['periodo'] == 'dezena2'){
+            $inicio = "$ano-$mes-11";
+            $fim = "$ano-$mes-20";
+        }
+
+        if($_GET['periodo'] == 'dezena3'){
+            $inicio = "$ano-$mes-21";
+            $fim = "$ano-$mes-$ultimoDia";
+        }
+    }
+?>
+
+    <form method="GET" class="row g-2 mb-3">
+        <div class="col-md-3">
+            <input type="date" name="inicio" value="<?= $inicio ?>" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <input type="date" name="fim" value="<?= $fim ?>" class="form-control">
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary w-100">Filtrar</button>
+        </div>
+        <div class="col-md-4 d-flex gap-2">
+            <a href="?periodo=dezena1" class="btn btn-outline-secondary w-100">1ª Dezena</a>
+            <a href="?periodo=dezena2" class="btn btn-outline-secondary w-100">2ª Dezena</a>
+            <a href="?periodo=dezena3" class="btn btn-outline-secondary w-100">3ª Dezena</a>
+        </div>
+    </form>
+
+
+
     <?php
         $ranking = $conn->query("
         SELECT vendedor_id,
@@ -141,13 +187,13 @@ $comissao = $faturamento * 0.01;
 
 <?php
     $grafico = $conn->query("
-    SELECT DATE(data_atendimento) as dia,
-    SUM(CASE WHEN resultado='Venda' THEN valor ELSE 0 END) as total
-    FROM atendimentos
-    WHERE vendedor_id = '$vendedor_id'
-    AND MONTH(data_atendimento)=MONTH(CURDATE())
-    AND YEAR(data_atendimento)=YEAR(CURDATE())
-    GROUP BY DATE(data_atendimento)
+        SELECT DATE(data_atendimento) as dia,
+        SUM(CASE WHEN resultado='Venda' THEN valor ELSE 0 END) as total
+        FROM atendimentos
+        WHERE vendedor_id = '$vendedor_id'
+        AND MONTH(data_atendimento)=MONTH(CURDATE())
+        AND YEAR(data_atendimento)=YEAR(CURDATE())
+        GROUP BY DATE(data_atendimento)
     ");
 
     $dias = [];
@@ -184,26 +230,26 @@ $comissao = $faturamento * 0.01;
 
 <!--  ==========  POSIÇÃO NO RANCKING  =========  -->
 <?php
-$ranking = $conn->query("
-SELECT vendedor_id,
-SUM(CASE WHEN resultado='Venda' THEN valor ELSE 0 END) as total
-FROM atendimentos
-WHERE MONTH(data_atendimento)=MONTH(CURDATE())
-AND YEAR(data_atendimento)=YEAR(CURDATE())
-GROUP BY vendedor_id
-ORDER BY total DESC
-");
+    $ranking = $conn->query("
+        SELECT vendedor_id,
+        SUM(CASE WHEN resultado='Venda' THEN valor ELSE 0 END) as total
+        FROM atendimentos
+        WHERE MONTH(data_atendimento)=MONTH(CURDATE())
+        AND YEAR(data_atendimento)=YEAR(CURDATE())
+        GROUP BY vendedor_id
+        ORDER BY total DESC
+    ");
 
-$posicao = 1;
-$minhaPosicao = 0;
+    $posicao = 1;
+    $minhaPosicao = 0;
 
-while($row = $ranking->fetch_assoc()){
-    if($row['vendedor_id'] == $vendedor_id){
-        $minhaPosicao = $posicao;
-        break;
+    while($row = $ranking->fetch_assoc()){
+        if($row['vendedor_id'] == $vendedor_id){
+            $minhaPosicao = $posicao;
+            break;
+        }
+        $posicao++;
     }
-    $posicao++;
-}
 ?>
 
 <div class="alert alert-info mt-3 text-center">
