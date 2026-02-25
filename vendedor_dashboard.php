@@ -1,3 +1,50 @@
+<style>
+    .ranking-card {
+    border-radius: 18px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.ranking-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.ranking-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+
+.ranking-position {
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.rank-1 {
+    background: linear-gradient(135deg, #FFD700, #FFC107);
+    color: #000;
+}
+
+.rank-2 {
+    background: linear-gradient(135deg, #C0C0C0, #9E9E9E);
+    color: #000;
+}
+
+.rank-3 {
+    background: linear-gradient(135deg, #CD7F32, #A0522D);
+    color: #fff;
+}
+
+.rank-default {
+    background: linear-gradient(135deg, #111, #333);
+    color: #fff;
+}
+</style>
+
+
 <?php
 require_once 'includes/header.php';
 
@@ -215,33 +262,51 @@ $dados = $conn->query($sql)->fetch_assoc();
         }
     ?>
 
+    <?php
+    function classeRanking($posicao){
+        if($posicao == 1) return "rank-1";
+        if($posicao == 2) return "rank-2";
+        if($posicao == 3) return "rank-3";
+        return "rank-default";
+    }
+    ?>
+
+<!--  ========== CARDS DO RANKING  ==========  -->
     <div class="alert alert-info mt-3 text-center">
         🏆 Você está na posição <strong><?= $minhaPosicao ?>º</strong> no ranking mensal
     </div>
 
-    <div class="row text-center mt-3">
+    <div class="row text-center mt-4 g-3">
+
         <div class="col-md-4">
-            <div class="card border-0 shadow-sm p-3">
-                <small class="text-muted">🏆 Ranking do Dia</small>
-                <h4 class="fw-bold"><?= $minhaPosDia ?>º</h4>
+            <div class="card ranking-card <?= classeRanking($minhaPosDia) ?> p-4">
+                <div class="ranking-title">🏆 Ranking do Dia</div>
+                <div class="ranking-position">
+                    <?= $minhaPosDia ?>º
+                </div>
             </div>
         </div>
 
         <div class="col-md-4">
-            <div class="card border-0 shadow-sm p-3">
-                <small class="text-muted">🔥 Ranking da Dezena</small>
-                <h4 class="fw-bold"><?= $minhaPosDezena ?>º</h4>
+            <div class="card ranking-card <?= classeRanking($minhaPosDezena) ?> p-4">
+                <div class="ranking-title">🔥 Ranking da Dezena</div>
+                <div class="ranking-position">
+                    <?= $minhaPosDezena ?>º
+                </div>
             </div>
         </div>
 
         <div class="col-md-4">
-            <div class="card border-0 shadow-sm p-3">
-                <small class="text-muted">📊 Ranking do Mês</small>
-                <h4 class="fw-bold"><?= $minhaPosMes ?>º</h4>
+            <div class="card ranking-card <?= classeRanking($minhaPosMes) ?> p-4">
+                <div class="ranking-title">📊 Ranking do Mês</div>
+                <div class="ranking-position">
+                    <?= $minhaPosMes ?>º
+                </div>
             </div>
         </div>
+
     </div>
-
+<!--  ========== CARDS DAS METRICAS  ==========  -->
     <div class="row g-3">
         <div class="col-12 col-md-12">
             <div class="card shadow-sm border-0 text-center p-3">
@@ -299,28 +364,6 @@ $dados = $conn->query($sql)->fetch_assoc();
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
