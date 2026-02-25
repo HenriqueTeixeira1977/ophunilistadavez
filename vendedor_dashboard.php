@@ -1,47 +1,47 @@
 <style>
     .ranking-card {
-    border-radius: 18px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
+        border-radius: 18px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
 
-.ranking-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-}
+    .ranking-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    }
 
-.ranking-title {
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    opacity: 0.7;
-}
+    .ranking-title {
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        opacity: 0.7;
+    }
 
-.ranking-position {
-    font-size: 32px;
-    font-weight: 800;
-}
+    .ranking-position {
+        font-size: 32px;
+        font-weight: 800;
+    }
 
-.rank-1 {
-    background: linear-gradient(135deg, #FFD700, #FFC107);
-    color: #000;
-}
+    .rank-1 {
+        background: linear-gradient(135deg, #FFD700, #FFC107);
+        color: #000;
+    }
 
-.rank-2 {
-    background: linear-gradient(135deg, #C0C0C0, #9E9E9E);
-    color: #000;
-}
+    .rank-2 {
+        background: linear-gradient(135deg, #C0C0C0, #9E9E9E);
+        color: #000;
+    }
 
-.rank-3 {
-    background: linear-gradient(135deg, #CD7F32, #A0522D);
-    color: #fff;
-}
+    .rank-3 {
+        background: linear-gradient(135deg, #CD7F32, #A0522D);
+        color: #fff;
+    }
 
-.rank-default {
-    background: linear-gradient(135deg, #111, #333);
-    color: #fff;
-}
+    .rank-default {
+        background: linear-gradient(135deg, #111, #333);
+        color: #fff;
+    }
 </style>
 
 
@@ -271,6 +271,10 @@ $dados = $conn->query($sql)->fetch_assoc();
     }
     ?>
 
+
+
+
+
 <!--  ========== CARDS DO RANKING  ==========  -->
     <div class="alert alert-info mt-3 text-center">
         🏆 Você está na posição <strong><?= $minhaPosicao ?>º</strong> no ranking mensal
@@ -368,7 +372,6 @@ $dados = $conn->query($sql)->fetch_assoc();
 
 
 <!--  ==========  GRAFICO EVOLUÇÃO MENSAL  =========  -->
-
 <?php
     $grafico = $conn->query("
         SELECT DATE(data_atendimento) as dia,
@@ -411,32 +414,7 @@ $dados = $conn->query($sql)->fetch_assoc();
     });
 </script>
 
-<!--  ==========  POSIÇÃO RANCKING FOOTER  =========  -->
-<?php
-    $ranking = $conn->query("
-        SELECT vendedor_id,
-        SUM(CASE WHEN resultado='Venda' THEN valor ELSE 0 END) as total
-        FROM atendimentos
-        WHERE DATE(data_atendimento) BETWEEN '$inicio' AND '$fim'
-        GROUP BY vendedor_id
-        ORDER BY total DESC
-    ");
 
-    $posicao = 1;
-    $minhaPosicao = 0;
-
-    while($row = $ranking->fetch_assoc()){
-        if($row['vendedor_id'] == $vendedor_id){
-            $minhaPosicao = $posicao;
-            break;
-        }
-        $posicao++;
-    }
-?>
-
-<div class="alert alert-info mt-3 text-center">
-    🏆 Você está na posição <strong><?= $minhaPosicao ?>º</strong> no ranking mensal
-</div>
 
 
 <!--  ==========  FOOTER  =========  -->
