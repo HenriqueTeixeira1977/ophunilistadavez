@@ -46,7 +46,7 @@ include_once __DIR__ . '/../includes/auth.php';
                 <ul class="navbar-nav me-auto">
                     <?php if(isAdmin()): ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="dashboard.php">
+                            <a class="nav-link" href="../../dashboard.php">
                                 <i class="bi bi-speedometer2"></i> Painel Geral
                             </a>
                         </li>
