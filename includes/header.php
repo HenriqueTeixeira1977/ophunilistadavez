@@ -51,25 +51,25 @@ include_once __DIR__ . '/../includes/auth.php';
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../ranking/index.php">
+                            <a class="nav-link" href="../../pages/ranking/index.php">
                                 <i class="bi bi-trophy"></i> Ranking
                             </a>                
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-bullseye"></i> Metas</a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li><a class="dropdown-item" href="/metas/index.php">Painel Geral</a></li>
+                                <li><a class="dropdown-item" href="../../pages/metas/index.php">Painel Geral</a></li>
                                 <li><a class="dropdown-item" href="../../pages/metas/importar.php">Importar Metas</a></li>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>
                         </li>                                        
                         <li class="nav-item">
-                            <a class="nav-link" href="pages/vendedores/index.php">
+                            <a class="nav-link" href="../../pages/vendedores/index.php">
                                 <i class="bi bi-people"></i> Vendedores
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="pages/listadavez/index.php">
+                            <a class="nav-link" href="../../pages/listadavez/index.php">
                                 <i class="bi bi-list-ol"></i> Lista da Vez
                             </a>
                         </li>
