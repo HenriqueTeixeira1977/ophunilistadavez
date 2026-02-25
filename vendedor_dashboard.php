@@ -46,31 +46,33 @@ if(!isset($_SESSION['usuario_id'])){
     exit;
 }
 
+
+
 /* ==========  MÉTRICAS INDIVIDUAIS  ==========  */
 
 $sql = "
-SELECT 
-COUNT(id) as AT,
-SUM(CASE WHEN resultado = 'Venda' THEN 1 ELSE 0 END) as CC,
-SUM(CASE WHEN resultado = 'Não comprou' THEN 1 ELSE 0 END) as CNC,
-SUM(CASE WHEN resultado = 'Venda' THEN valor ELSE 0 END) as faturamento,
-SUM(quantidade) as PCS
-FROM atendimentos
-WHERE vendedor_id = '$vendedor_id'
-AND DATE(data_atendimento) BETWEEN '$inicio' AND '$fim'
+    SELECT 
+    COUNT(id) as AT,
+    SUM(CASE WHEN resultado = 'Venda' THEN 1 ELSE 0 END) as CC,
+    SUM(CASE WHEN resultado = 'Não comprou' THEN 1 ELSE 0 END) as CNC,
+    SUM(CASE WHEN resultado = 'Venda' THEN valor ELSE 0 END) as faturamento,
+    SUM(quantidade) as PCS
+    FROM atendimentos
+    WHERE vendedor_id = '$vendedor_id'
+    AND DATE(data_atendimento) BETWEEN '$inicio' AND '$fim'
 ";
 
 $dados = $conn->query($sql)->fetch_assoc();
 
-$AT = $dados['AT'] ?? 0;
-$CC = $dados['CC'] ?? 0;
-$CNC = $dados['CNC'] ?? 0;
-$faturamento = $dados['faturamento'] ?? 0;
-$PCS = $dados['PCS'] ?? 0;
-$PA = ($AT > 0) ? $PCS / $AT : 0;
-$TKM = ($CC > 0) ? $faturamento / $CC : 0;
-$TXC = ($AT > 0) ? ($CC / $AT) * 100 : 0;
-$comissao = $faturamento * 0.01;
+    $AT = $dados['AT'] ?? 0;
+    $CC = $dados['CC'] ?? 0;
+    $CNC = $dados['CNC'] ?? 0;
+    $faturamento = $dados['faturamento'] ?? 0;
+    $PCS = $dados['PCS'] ?? 0;
+    $PA = ($AT > 0) ? $PCS / $AT : 0;
+    $TKM = ($CC > 0) ? $faturamento / $CC : 0;
+    $TXC = ($AT > 0) ? ($CC / $AT) * 100 : 0;
+    $comissao = $faturamento * 0.01;
 
 ?>
 
@@ -97,6 +99,101 @@ $comissao = $faturamento * 0.01;
 
 <!--  ==========  RANKING NO TOPO  =========  -->
     <?php
+    $hoje = date('Y-m-d');
+
+    $ano = date('Y');
+    $mes = date('m');
+    $ultimoDia = date('t');
+
+    /* ======================
+    DEZENA ATUAL
+    ====================== */
+
+    $diaHoje = date('d');
+
+    if($diaHoje <= 10){
+        $inicioDezena = "$ano-$mes-01";
+        $fimDezena = "$ano-$mes-10";
+    }elseif($diaHoje <= 20){
+        $inicioDezena = "$ano-$mes-11";
+        $fimDezena = "$ano-$mes-20";
+    }else{
+        $inicioDezena = "$ano-$mes-21";
+        $fimDezena = "$ano-$mes-$ultimoDia";
+    }
+
+    /* ======================
+    MÊS ATUAL
+    ====================== */
+
+    $inicioMes = "$ano-$mes-01";
+    $fimMes = "$ano-$mes-$ultimoDia";
+
+    /*  ==========  RANKING DO DIA  ==========  */
+    $rankingDia = $conn->query("
+        SELECT vendedor_id,
+        SUM(CASE WHEN resultado='Venda' THEN valor ELSE 0 END) as total
+        FROM atendimentos
+        WHERE DATE(data_atendimento) = '$hoje'
+        GROUP BY vendedor_id
+        ORDER BY total DESC
+    ");
+
+    $posDia = 1;
+    $minhaPosDia = 0;
+
+    while($row = $rankingDia->fetch_assoc()){
+        if($row['vendedor_id'] == $vendedor_id){
+            $minhaPosDia = $posDia;
+            break;
+        }
+        $posDia++;
+    }
+
+    /*  ==========  RANKING DA DEZENA  ==========  */
+    $rankingDezena = $conn->query("
+        SELECT vendedor_id,
+        SUM(CASE WHEN resultado='Venda' THEN valor ELSE 0 END) as total
+        FROM atendimentos
+        WHERE DATE(data_atendimento) BETWEEN '$inicioDezena' AND '$fimDezena'
+        GROUP BY vendedor_id
+        ORDER BY total DESC
+    ");
+
+    $posDezena = 1;
+    $minhaPosDezena = 0;
+
+    while($row = $rankingDezena->fetch_assoc()){
+        if($row['vendedor_id'] == $vendedor_id){
+            $minhaPosDezena = $posDezena;
+            break;
+        }
+        $posDezena++;
+    }
+
+
+/*  ==========  RANKING DO MÊS  ==========  */
+    $rankingMes = $conn->query("
+        SELECT vendedor_id,
+        SUM(CASE WHEN resultado='Venda' THEN valor ELSE 0 END) as total
+        FROM atendimentos
+        WHERE DATE(data_atendimento) BETWEEN '$inicioMes' AND '$fimMes'
+        GROUP BY vendedor_id
+        ORDER BY total DESC
+    ");
+
+    $posMes = 1;
+    $minhaPosMes = 0;
+
+    while($row = $rankingMes->fetch_assoc()){
+        if($row['vendedor_id'] == $vendedor_id){
+            $minhaPosMes = $posMes;
+            break;
+        }
+        $posMes++;
+    }
+/*  ==========  QUERIES DE RANKING  ==========  */
+
         $ranking = $conn->query("
             SELECT vendedor_id,
             SUM(CASE WHEN resultado='Venda' THEN valor ELSE 0 END) as total
@@ -121,6 +218,30 @@ $comissao = $faturamento * 0.01;
     <div class="alert alert-info mt-3 text-center">
         🏆 Você está na posição <strong><?= $minhaPosicao ?>º</strong> no ranking mensal
     </div>
+
+    <div class="row text-center mt-3">
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-3">
+                <small class="text-muted">🏆 Ranking do Dia</small>
+                <h4 class="fw-bold"><?= $minhaPosDia ?>º</h4>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-3">
+                <small class="text-muted">🔥 Ranking da Dezena</small>
+                <h4 class="fw-bold"><?= $minhaPosDezena ?>º</h4>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-3">
+                <small class="text-muted">📊 Ranking do Mês</small>
+                <h4 class="fw-bold"><?= $minhaPosMes ?>º</h4>
+            </div>
+        </div>
+    </div>
+
     <div class="row g-3">
         <div class="col-12 col-md-12">
             <div class="card shadow-sm border-0 text-center p-3">
@@ -178,6 +299,28 @@ $comissao = $faturamento * 0.01;
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
