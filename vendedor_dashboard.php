@@ -39,7 +39,7 @@
     }
 
     .rank-default {
-        background: linear-gradient(135deg, #111, #333);
+        background: linear-gradient(135deg, #f5f5f5, #e9e9e9);
         color: #fff;
     }
 </style>
