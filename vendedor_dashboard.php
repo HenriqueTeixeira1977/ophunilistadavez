@@ -31,9 +31,7 @@ SUM(CASE WHEN resultado = 'Venda' THEN valor ELSE 0 END) as faturamento,
 SUM(quantidade) as PCS
 FROM atendimentos
 WHERE vendedor_id = '$vendedor_id'
-AND MONTH(data_atendimento) = '$mesAtual'
-AND YEAR(data_atendimento) = '$anoAtual'
-";
+AND DATE(data_atendimento) BETWEEN '$inicio' AND '$fim'";
 
 $dados = $conn->query($sql)->fetch_assoc();
 
@@ -51,6 +49,9 @@ $comissao = $faturamento * 0.01;
 
 <div class="container p-3">
     <h5 class="mb-3">📊 Meu Desempenho</h5>
+
+
+
 <!--  =========  FILTRO POR PERIODO  =========  -->
 <?php
     $inicio = $_GET['inicio'] ?? date('Y-m-01');
@@ -102,8 +103,7 @@ $comissao = $faturamento * 0.01;
         SELECT vendedor_id,
         SUM(CASE WHEN resultado='Venda' THEN valor ELSE 0 END) as total
         FROM atendimentos
-        WHERE MONTH(data_atendimento)=MONTH(CURDATE())
-        AND YEAR(data_atendimento)=YEAR(CURDATE())
+        WHERE DATE(data_atendimento) BETWEEN '$inicio' AND '$fim'        
         GROUP BY vendedor_id
         ORDER BY total DESC
         ");
@@ -191,8 +191,7 @@ $comissao = $faturamento * 0.01;
         SUM(CASE WHEN resultado='Venda' THEN valor ELSE 0 END) as total
         FROM atendimentos
         WHERE vendedor_id = '$vendedor_id'
-        AND MONTH(data_atendimento)=MONTH(CURDATE())
-        AND YEAR(data_atendimento)=YEAR(CURDATE())
+        AND DATE(data_atendimento) BETWEEN '$inicio' AND '$fim'
         GROUP BY DATE(data_atendimento)
     ");
 
