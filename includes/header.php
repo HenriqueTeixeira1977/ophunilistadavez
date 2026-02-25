@@ -75,9 +75,7 @@ include_once __DIR__ . '/../includes/auth.php';
                         </li>
                     <?php endif; ?>
 
-
                     <!--  ==========  MENU PARA VENDEDORES  ==========  -->
-                    
                     <?php if(isVendedor()): ?>
                         <li class="nav-item">
                             <a class="nav-link" href="../../vendedor_dashboard.php">
@@ -96,13 +94,12 @@ include_once __DIR__ . '/../includes/auth.php';
                         <i class="bi bi-person-fill"></i>
                         <?= $_SESSION['nome'] ?>
                     </span>
-                    <a href="../auth/logout.php" class="btn btn-outline-light btn-sm">
+                    <a href="../../auth/logout.php" class="btn btn-outline-light btn-sm">
                         <i class="bi bi-box-arrow-right"></i> Sair
                     </a>
                 </div>
             </div>
         </div>
     </nav>
-
 <div class="container-fluid mt-4">
 
