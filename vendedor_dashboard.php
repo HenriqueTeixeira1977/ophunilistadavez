@@ -8,7 +8,35 @@ if (isAdmin()) {
 ?>
 
 <?php
-$vendedor_id = $_SESSION['usuario_id'];
+    $vendedor_id = $_SESSION['usuario_id'];
+
+/*  =========  FILTRO POR PERIODO  =========  */
+
+    $inicio = $_GET['inicio'] ?? date('Y-m-01');
+    $fim = $_GET['fim'] ?? date('Y-m-t');
+
+    if(isset($_GET['periodo'])){
+        $ano = date('Y');
+        $mes = date('m');
+        $ultimoDia = date('t');
+
+        if($_GET['periodo'] == 'dezena1'){
+            $inicio = "$ano-$mes-01";
+            $fim = "$ano-$mes-10";
+        }
+
+        if($_GET['periodo'] == 'dezena2'){
+            $inicio = "$ano-$mes-11";
+            $fim = "$ano-$mes-20";
+        }
+
+        if($_GET['periodo'] == 'dezena3'){
+            $inicio = "$ano-$mes-21";
+            $fim = "$ano-$mes-$ultimoDia";
+        }
+    }
+
+
 
 $mesAtual = date('m');
 $anoAtual = date('Y');
@@ -18,9 +46,7 @@ if(!isset($_SESSION['usuario_id'])){
     exit;
 }
 
-/* ============================
-   MÉTRICAS INDIVIDUAIS
-============================ */
+/* ==========  MÉTRICAS INDIVIDUAIS  ==========  */
 
 $sql = "
 SELECT 
@@ -51,35 +77,6 @@ $comissao = $faturamento * 0.01;
 <div class="container p-3">
     <h5 class="mb-3">📊 Meu Desempenho</h5>
 
-
-
-<!--  =========  FILTRO POR PERIODO  =========  -->
-<?php
-    $inicio = $_GET['inicio'] ?? date('Y-m-01');
-    $fim = $_GET['fim'] ?? date('Y-m-t');
-
-    if(isset($_GET['periodo'])){
-        $ano = date('Y');
-        $mes = date('m');
-        $ultimoDia = date('t');
-
-        if($_GET['periodo'] == 'dezena1'){
-            $inicio = "$ano-$mes-01";
-            $fim = "$ano-$mes-10";
-        }
-
-        if($_GET['periodo'] == 'dezena2'){
-            $inicio = "$ano-$mes-11";
-            $fim = "$ano-$mes-20";
-        }
-
-        if($_GET['periodo'] == 'dezena3'){
-            $inicio = "$ano-$mes-21";
-            $fim = "$ano-$mes-$ultimoDia";
-        }
-    }
-?>
-
     <form method="GET" class="row g-2 mb-3">
         <div class="col-md-3">
             <input type="date" name="inicio" value="<?= $inicio ?>" class="form-control">
@@ -98,16 +95,15 @@ $comissao = $faturamento * 0.01;
     </form>
 
 
-
+<!--  ==========  RANKING NO TOPO  =========  -->
     <?php
         $ranking = $conn->query("
-        SELECT vendedor_id,
-        SUM(CASE WHEN resultado='Venda' THEN valor ELSE 0 END) as total
-        FROM atendimentos
-        WHERE MONTH(data_atendimento)=MONTH(CURDATE())
-        AND YEAR(data_atendimento)=YEAR(CURDATE())
-        GROUP BY vendedor_id
-        ORDER BY total DESC
+            SELECT vendedor_id,
+            SUM(CASE WHEN resultado='Venda' THEN valor ELSE 0 END) as total
+            FROM atendimentos
+            WHERE DATE(data_atendimento) BETWEEN '$inicio' AND '$fim'            
+            GROUP BY vendedor_id
+            ORDER BY total DESC
         ");
 
         $posicao = 1;
@@ -192,8 +188,7 @@ $comissao = $faturamento * 0.01;
         SELECT DATE(data_atendimento) as dia,
         SUM(CASE WHEN resultado='Venda' THEN valor ELSE 0 END) as total
         FROM atendimentos
-        WHERE vendedor_id = '$vendedor_id'
-        WHERE vendedor_id = '$vendedor_id'
+        WHERE vendedor_id = $vendedor_id
         AND DATE(data_atendimento) BETWEEN '$inicio' AND '$fim'
         GROUP BY DATE(data_atendimento)
     ");
@@ -209,7 +204,7 @@ $comissao = $faturamento * 0.01;
 
 <div class="card shadow-sm border-0 mt-4">
     <div class="card-body">
-        <h6>Evolução Mensal</h6>
+        <h6>Evolução de <?= date('d/m', strtotime($inicio)) ?> até <?= date('d/m', strtotime($fim)) ?></h6>
         <canvas id="graficoIndividual"></canvas>
     </div>
 </div>
@@ -230,7 +225,7 @@ $comissao = $faturamento * 0.01;
     });
 </script>
 
-<!--  ==========  POSIÇÃO NO RANCKING  =========  -->
+<!--  ==========  POSIÇÃO RANCKING FOOTER  =========  -->
 <?php
     $ranking = $conn->query("
         SELECT vendedor_id,
@@ -256,5 +251,8 @@ $comissao = $faturamento * 0.01;
 <div class="alert alert-info mt-3 text-center">
     🏆 Você está na posição <strong><?= $minhaPosicao ?>º</strong> no ranking mensal
 </div>
+
+
+<!--  ==========  FOOTER  =========  -->
 
 <?php require_once 'includes/footer.php'; ?>
