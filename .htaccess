@@ -1,0 +1,4 @@
+RewriteEngine On
+
+# Forçar acesso via login
+DirectoryIndex login.php
