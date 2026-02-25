@@ -35,7 +35,7 @@ include_once __DIR__ . '/../includes/auth.php';
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../index.php">
+            <a class="navbar-brand" href="#">
                 <i class="bi bi-graph-up"></i> OPHICINA Unimart
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
