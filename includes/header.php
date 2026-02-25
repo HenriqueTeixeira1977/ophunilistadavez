@@ -80,7 +80,7 @@ include_once __DIR__ . '/../includes/auth.php';
                     
                     <?php if(isVendedor()): ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="vendedor_dashboard.php">
+                            <a class="nav-link" href="../../vendedor_dashboard.php">
                                 <i class="bi bi-person-circle"></i> Meu Painel
                             </a>
                         </li>
