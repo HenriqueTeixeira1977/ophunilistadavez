@@ -310,6 +310,8 @@ $dados = $conn->query($sql)->fetch_assoc();
         </div>
 
     </div>
+
+    
 <!--  ========== CARDS DAS METRICAS  ==========  -->
     <div class="row g-3">
         <div class="col-12 col-md-12">

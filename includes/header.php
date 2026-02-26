@@ -60,7 +60,6 @@ include_once __DIR__ . '/../includes/auth.php';
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                                 <li><a class="dropdown-item" href="../../pages/metas/index.php">Painel Geral</a></li>
                                 <li><a class="dropdown-item" href="../../pages/metas/importar.php">Importar Metas</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>
                         </li>                                        
                         <li class="nav-item">
@@ -69,7 +68,7 @@ include_once __DIR__ . '/../includes/auth.php';
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../pages/listadavez/index.php">
+                            <a class="nav-link" href="/pages/listadavez/index.php">
                                 <i class="bi bi-list-ol"></i> Lista da Vez
                             </a>
                         </li>
