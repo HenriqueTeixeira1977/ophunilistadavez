@@ -1,14 +1,12 @@
 <?php
 require_once '../../includes/header.php';
-include '../../config/database.php';
 
-$fila = $conn->query("
-    SELECT f.posicao, v.nome, v.id, v.status
-    FROM fila f
-    JOIN vendedores v ON f.vendedor_id = v.id
-    ORDER BY f.posicao ASC
-");
+if (isAdmin()) {
+    header("Location: /ophuni-listadavez/pages/listadavez/index.php");
+    exit;
+}
 ?>
+
 
 <div class="container py-4">
 
@@ -92,4 +90,3 @@ class="btn btn-sm btn-outline-success">
 </div>
 
 </div>
-<?php include '../../includes/footer.php'; ?>
