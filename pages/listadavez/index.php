@@ -1,65 +1,95 @@
 <?php
 require_once '../../includes/header.php';
-
-if (isAdmin()) {
-    header("Location: /ophuni-listadavez/pages/listadavez/index.php");
-    exit;
-}
-?>
-
-
-<?php
 include '../../config/database.php';
 
 $fila = $conn->query("
-    SELECT f.posicao, v.nome, v.id 
+    SELECT f.posicao, v.nome, v.id, v.status
     FROM fila f
     JOIN vendedores v ON f.vendedor_id = v.id
     ORDER BY f.posicao ASC
-    ");
+");
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista da Vez - OPHICINA Unimart</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+<div class="container py-4">
 
-<body class="container">
-<h2 class="mb-4">Lista da Vez - Ophicina</h2>
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Posição</th>
-            <th>Vendedor</th>
-            <th>Ação</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php while($row = $fila->fetch_assoc()): ?>
-        <tr>
-            <td><?= $row['posicao'] ?></td>
-            <td>
-                <?php if($row['posicao'] == 1): ?>
-                    <strong class="text-success"><?= $row['nome'] ?> (NA VEZ)</strong>
-                <?php else: ?>
-                    <?= $row    ['nome'] ?>
-                <?php endif; ?>
-            </td>
-            <td>
-                <a href="../../atendimentos/registrar.php?id=<?= $row['id'] ?>" 
-                class="btn btn-primary btn-sm">
-                Registrar Atendimento
-                </a>
-            </td>
-        </tr>
-        <?php endwhile; ?>
-    </tbody>
+<h2 class="mb-4 fw-bold text-center">
+🎯 Lista da Vez - Ophicina
+</h2>
+
+<div class="card shadow-lg border-0 rounded-4">
+<div class="card-body table-responsive">
+
+<table class="table align-middle text-center">
+
+<thead class="table-dark">
+<tr>
+<th>#</th>
+<th>Vendedor</th>
+<th>Status</th>
+<th>Ações</th>
+</tr>
+</thead>
+
+<tbody>
+
+<?php while($row = $fila->fetch_assoc()): ?>
+
+<tr class="<?= ($row['posicao']==1 && $row['status']=='ativo') ? 'table-success fw-bold' : '' ?>">
+
+<td><?= $row['posicao'] ?></td>
+
+<td>
+<?= $row['nome'] ?>
+<?php if($row['posicao']==1 && $row['status']=='ativo'): ?>
+<span class="badge bg-success ms-2">NA VEZ</span>
+<?php endif; ?>
+</td>
+
+<td>
+<?php if($row['status']=='ativo'): ?>
+<span class="badge bg-success">Ativo</span>
+<?php else: ?>
+<span class="badge bg-secondary">Inativo</span>
+<?php endif; ?>
+</td>
+
+<td class="d-flex gap-2 justify-content-center flex-wrap">
+
+<a href="../../atendimentos/registrar.php?id=<?= $row['id'] ?>"
+class="btn btn-sm btn-primary">
+📝 Atendimento
+</a>
+
+<?php if($row['posicao']==1 && $row['status']=='ativo'): ?>
+<a href="passar_vez.php?id=<?= $row['id'] ?>"
+class="btn btn-sm btn-warning">
+🔄 Passar
+</a>
+<?php endif; ?>
+
+<?php if($row['status']=='ativo'): ?>
+<a href="alterar_status.php?id=<?= $row['id'] ?>&acao=pausar"
+class="btn btn-sm btn-outline-danger">
+⏸ Pausar
+</a>
+<?php else: ?>
+<a href="alterar_status.php?id=<?= $row['id'] ?>&acao=ativar"
+class="btn btn-sm btn-outline-success">
+▶ Ativar
+</a>
+<?php endif; ?>
+
+</td>
+
+</tr>
+
+<?php endwhile; ?>
+
+</tbody>
 </table>
 
-</body>
-</html>
+</div>
+</div>
+
+</div>
 <?php include '../../includes/footer.php'; ?>
