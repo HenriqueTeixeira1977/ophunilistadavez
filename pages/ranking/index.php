@@ -53,6 +53,12 @@ $ranking = [];
 
 while($row = $sql->fetch_assoc()){
 
+    $row['percentual_meta'] = ($metaPeriodo > 0)
+        ? ($row['faturamento'] / $metaPeriodo) * 100
+        : 0;
+
+    $row['bateu_meta'] = $row['percentual_meta'] >= 100;
+
     $row['tkm'] = ($row['convertidos'] > 0) 
         ? $row['faturamento'] / $row['convertidos'] 
         : 0;
@@ -95,12 +101,26 @@ while($row = $sql->fetch_assoc()){
 
 </form>  
 
+
+
+
 <h3 class="mb-4">🏆 Ranking Comercial - <?= date('m/Y') ?></h3>
 
 <!-- PÓDIO -->
 <div class="row mb-4">
 
     <?php 
+    $metaPeriodo = $conn->query("
+        SELECT SUM(meta_vendas) as meta_total
+        FROM metas_diarias
+        WHERE DATE(data_meta) BETWEEN '$inicio' AND '$fim'
+    ")
+    ->fetch_assoc()['meta_total'] ?? 0;
+
+
+
+
+
     $posicoes = ['🥇','🥈','🥉'];
         for($i=0; $i<3; $i++):
         if(isset($ranking[$i])):
@@ -115,15 +135,22 @@ while($row = $sql->fetch_assoc()){
                 <h4><?= $posicoes[$i] ?></h4>
 
                 <h5 class="mt-2"><?= $ranking[$i]['nome'] ?></h5>
+                <?php if($ranking[$i]['bateu_meta']): ?>
+                    <div class="badge bg-success mt-2">🎯 Meta Batida</div>
+                        <?php else: ?>
+                        <div class="badge bg-warning mt-2">
+                            <?= number_format($ranking[$i]['percentual_meta'],1) ?>% da meta
+                    </div>
+                <?php endif; ?>
 
                 <h4 class="text-success">
                     R$ <?= number_format($ranking[$i]['faturamento'],2,',','.') ?>
                 </h4>
 
                 <p class="text-secondary">
-                    P.A: <?= number_format($ranking[$i]['pa'],2) ?>
+                    P.A: <?= number_format($ranking[$i]['pa'],2) ?> |
                     TXC: <?= number_format($ranking[$i]['txc'],1) ?>% |
-                    TKM: R$ <?= number_format($ranking[$i]['tkm'],2,',','.') ?> |
+                    TKM: R$ <?= number_format($ranking[$i]['tkm'],2,',','.') ?>
                 </p>
             </div>
         </div>
@@ -146,6 +173,7 @@ while($row = $sql->fetch_assoc()){
                 <tr>
                     <th>#</th>
                     <th>Vendedor</th>
+                    <th>Meta</th>
                     <th>Faturamento</th>
                     <th>A.T</th>
                     <th>C.C</th>
@@ -157,9 +185,22 @@ while($row = $sql->fetch_assoc()){
             </thead>
             <tbody>
                 <?php foreach($ranking as $index => $v): ?>
+                <tr class="<?= $v['bateu_meta'] ? 'table-success' : '' ?>">   
                 <tr>
                     <td><?= $index+1 ?></td>
                     <td><?= $v['nome'] ?></td>
+                    <td style="min-width:150px;">
+                        <div class="progress" style="height:8px;">
+                            <div class="progress-bar 
+                                <?= $v['percentual_meta']>=100?'bg-success':
+                                    ($v['percentual_meta']>=70?'bg-warning':'bg-danger') ?>"
+                                style="width: <?= min($v['percentual_meta'],100) ?>%">
+                            </div>
+                        </div>
+                        <small>
+                            <?= number_format($v['percentual_meta'],1) ?>%
+                        </small>
+                    </td>
                     <td class="text-success">
                         R$ <?= number_format($v['faturamento'],2,',','.') ?>
                     </td>
