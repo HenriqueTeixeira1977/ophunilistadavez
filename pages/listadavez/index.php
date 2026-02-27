@@ -1,6 +1,10 @@
 <?php
-require_once '../../includes/header.php';
-include '../../config/database.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+
+require_once '/../../includes/header.php';
+include '/../../config/database.php';
 
 $fila = $conn->query("
     SELECT f.posicao, v.nome, v.id, v.status
