@@ -1,6 +1,10 @@
 <?php
-include '../../config/database.php';
+require_once '../../includes/header.php';
 
+if(!isAdmin()){
+    header("Location: index.php");
+    exit;
+}
 $id = $_GET['id'];
 $acao = $_GET['acao'];
 

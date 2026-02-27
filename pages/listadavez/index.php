@@ -65,24 +65,29 @@ $fila = $conn->query("
                                 📝 Atendimento
                             </a>
 
-                                <a href="passar_vez.php?id=<?= $row['id'] ?>"
-                                    class="btn btn-sm btn-warning">
-                                    🔄 Passar
-                                </a>
+                            <!-- PASSAR (pode deixar para todos ou restringir se quiser) -->
+                            <a href="passar_vez.php?id=<?= $row['id'] ?>"
+                                class="btn btn-sm btn-warning">
+                                🔄 Passar
+                            </a>
 
-                            <?php if($row['status']=='ativo'): ?>
-                                <a href="alterar_status.php?id=<?= $row['id'] ?>&acao=pausar"
-                                    class="btn btn-sm btn-outline-danger">
-                                    ⏸ Pausar
-                                </a>
-                            <?php else: ?>
-                                <a href="alterar_status.php?id=<?= $row['id'] ?>&acao=ativar"
-                                    class="btn btn-sm btn-outline-success">
-                                    ▶ Ativar
-                                </a>
+                            <?php if(isAdmin()): ?>
+
+                                <?php if($row['status']=='ativo'): ?>
+                                    <a href="alterar_status.php?id=<?= $row['id'] ?>&acao=pausar"
+                                        class="btn btn-sm btn-outline-danger">
+                                        ⏸ Pausar
+                                    </a>
+                                <?php else: ?>
+                                    <a href="alterar_status.php?id=<?= $row['id'] ?>&acao=ativar"
+                                        class="btn btn-sm btn-outline-success">
+                                        ▶ Habilitar
+                                    </a>
+                                <?php endif; ?>
+
                             <?php endif; ?>
-                        </td>
-                    </tr>
+
+                        </td>                    </tr>
                     <?php endwhile; ?>
                 </tbody>
             </table>
