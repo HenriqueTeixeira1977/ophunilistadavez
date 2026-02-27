@@ -1,5 +1,6 @@
 <?php
 date_default_timezone_set('America/Sao_Paulo');
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -14,3 +15,6 @@ $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {
     die("Erro de conexão: " . $conn->connect_error);
 }
+
+/* 🔥 AJUSTE DO FUSO DO MYSQL */
+$conn->query("SET time_zone = '-03:00'");
