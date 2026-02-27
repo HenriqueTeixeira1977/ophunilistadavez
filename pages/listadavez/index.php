@@ -1,11 +1,12 @@
-<!--
+
+<?php
 require_once '../../includes/header.php';
 
 if (isAdmin()) {
     header("Location: /ophuni-listadavez/pages/listadavez/index.php");
     exit;
 }
--->
+?>
 
 
 <?php
