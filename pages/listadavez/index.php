@@ -3,7 +3,7 @@
 require_once '../../includes/header.php';
 
 if (isAdmin()) {
-    header("Location: /ophuni-listadavez/pages/listadavez/index.php");
+    header("Location: ../../pages/listadavez/index.php");
     exit;
 }
 ?>
