@@ -1,11 +1,17 @@
 <?php
+require_once '../../includes/header.php';
+require_once __DIR__ . '/../../config/database.php';
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+if(!isset($_SESSION['usuario_id'])){
+    header("Location: ../../index.php");
+    exit;
+}
+?>
 
-require_once '../../includes/header.php';
-include '../../config/database.php';
-
+<?php
 $fila = $conn->query("
     SELECT f.posicao, v.nome, v.id, v.status
     FROM fila f
