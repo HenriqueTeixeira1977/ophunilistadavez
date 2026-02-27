@@ -1,14 +1,3 @@
-
-<?php
-require_once '../../includes/header.php';
-
-if (isAdmin()) {
-    header("Location: ../../pages/listadavez/index.php");
-    exit;
-}
-?>
-
-
 <?php
 require_once '../../includes/header.php';
 include '../../config/database.php';
