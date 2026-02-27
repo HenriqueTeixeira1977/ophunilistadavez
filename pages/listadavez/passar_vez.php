@@ -3,32 +3,30 @@ include '../../config/database.php';
 
 $id = $_GET['id'];
 
-// pegar maior posição apenas dos ativos
-$max = $conn->query("
-    SELECT MAX(f.posicao) as ultima
-    FROM fila f
-    JOIN vendedores v ON f.vendedor_id = v.id
-    WHERE v.status='ativo'
-")->fetch_assoc()['ultima'];
+// Pega posição atual
+$atual = $conn->query("
+    SELECT posicao FROM fila WHERE vendedor_id = $id
+")->fetch_assoc()['posicao'];
 
-// mover para última posição
+// Pega última posição
+$ultima = $conn->query("
+    SELECT MAX(posicao) as max FROM fila
+")->fetch_assoc()['max'];
+
+// Move para última
 $conn->query("
     UPDATE fila 
-    SET posicao = $max 
+    SET posicao = $ultima + 1
     WHERE vendedor_id = $id
 ");
 
-// reorganizar apenas ativos
-$conn->query("
-    SET @pos := 0;
-");
+// Reorganiza sequencial
+$conn->query("SET @p = 0");
 
 $conn->query("
-    UPDATE fila f
-    JOIN vendedores v ON f.vendedor_id = v.id
-    SET f.posicao = (@pos := @pos + 1)
-    WHERE v.status='ativo'
-    ORDER BY f.posicao
+    UPDATE fila 
+    SET posicao = (@p := @p + 1)
+    ORDER BY posicao
 ");
 
 header("Location: index.php");

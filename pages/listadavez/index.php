@@ -16,6 +16,7 @@ $fila = $conn->query("
     SELECT f.posicao, v.nome, v.id, v.status
     FROM fila f
     JOIN vendedores v ON f.vendedor_id = v.id
+    WHERE v.status = 'ativo'
     ORDER BY f.posicao ASC
 ");
 ?>
@@ -64,12 +65,10 @@ $fila = $conn->query("
                                 📝 Atendimento
                             </a>
 
-                            <?php if($row['posicao']==1 && $row['status']=='ativo'): ?>
                                 <a href="passar_vez.php?id=<?= $row['id'] ?>"
                                     class="btn btn-sm btn-warning">
                                     🔄 Passar
                                 </a>
-                            <?php endif; ?>
 
                             <?php if($row['status']=='ativo'): ?>
                                 <a href="alterar_status.php?id=<?= $row['id'] ?>&acao=pausar"
