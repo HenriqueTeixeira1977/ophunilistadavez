@@ -1,4 +1,6 @@
+
 <?php
+date_default_timezone_set('America/Sao_Paulo');
 include '../config/database.php';
 
 $vendedor_id = $_POST['vendedor_id'];
