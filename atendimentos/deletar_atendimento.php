@@ -1,5 +1,5 @@
 <?php
-require_once 'config/database.php';
+require_once '/../config/database.php';
 
 $id = $_POST['id'];
 $cliente = $_POST['cliente'];
