@@ -47,7 +47,7 @@ if($tipo == 'admin'){
     JOIN vendedores v ON v.id = a.vendedor_id
     WHERE a.vendedor_id = $usuario_id
     $filtroData
-    ORDER BY a.data DESC
+    ORDER BY a.data_atendimento DESC
     ";
 
 }
