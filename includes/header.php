@@ -19,15 +19,51 @@ include_once __DIR__ . '/../includes/auth.php';
         body{
             background:#f4f6f9;
         }
+
         .navbar-brand{
-            font-weight:600;
+            font-weight:700;
             letter-spacing:1px;
+            font-size:18px;
         }
+
         .nav-link{
             font-weight:500;
+            position:relative;
+            transition: all .3s ease;
         }
+
+        .nav-link:hover{
+            transform: translateY(-2px);
+        }
+
+        /* Botão Premium - Atendimentos */
+        .nav-atendimento{
+            background: linear-gradient(45deg,#00c6ff,#0072ff);
+            border-radius: 8px;
+            padding: 6px 14px !important;
+            color:#fff !important;
+            margin-left:8px;
+            box-shadow:0 4px 12px rgba(0,114,255,0.3);
+            transition: all .3s ease;
+        }
+
+        .nav-atendimento:hover{
+            box-shadow:0 6px 18px rgba(0,114,255,0.5);
+            transform: translateY(-3px);
+        }
+
+        .badge-pulse{
+            animation:pulse 1.5s infinite;
+        }
+
+        @keyframes pulse{
+            0%{box-shadow:0 0 0 0 rgba(255,255,255,0.7);}
+            70%{box-shadow:0 0 0 6px rgba(255,255,255,0);}
+            100%{box-shadow:0 0 0 0 rgba(255,255,255,0);}
+        }
+
         nav{
-            width: 100%;
+            width:100%;
         }
     </style>
 </head>
@@ -72,6 +108,12 @@ include_once __DIR__ . '/../includes/auth.php';
                                 <i class="bi bi-list-ol"></i> Lista da Vez
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-atendimento" href="../../pages/atendimentos/atendimentos.php">
+                                <i class="bi bi-headset"></i> Atendimentos
+                                <span class="badge bg-light text-primary ms-2 badge-pulse">Novo</span>
+                            </a>
+                        </li>
                     <?php endif; ?>
 
                     <!--  ==========  MENU PARA VENDEDORES  ==========  -->
@@ -84,6 +126,11 @@ include_once __DIR__ . '/../includes/auth.php';
                         <li class="nav-item">
                             <a class="nav-link" href="../../pages/listadavez/index.php">
                                 <i class="bi bi-list-ol"></i> Lista da Vez
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-atendimento" href="../../pages/atendimentos/index.php">
+                                <i class="bi bi-headset"></i> Atendimentos
                             </a>
                         </li>
                     <?php endif; ?>                    
