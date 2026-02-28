@@ -1,5 +1,5 @@
 <?php
-require_once '/../config/database.php';
+require_once '../config/database.php';
 
 $usuario_id = $_SESSION['usuario_id'] ?? null;
 $tipo = $_SESSION['tipo'] ?? 'vendedor';
