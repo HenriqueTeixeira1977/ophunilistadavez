@@ -21,8 +21,7 @@ $tipo = $_SESSION['tipo'] ?? 'vendedor';
 $inicio = $_GET['inicio'] ?? date('Y-m-01');
 $fim = $_GET['fim'] ?? date('Y-m-t');
 
-$filtroData = "AND DATE(a.data) BETWEEN '$inicio' AND '$fim'";
-
+$filtroData = "AND DATE(a.data_atendimento) BETWEEN '$inicio' AND '$fim'";
 
 
 /* ======================
@@ -37,7 +36,7 @@ if($tipo == 'admin'){
     JOIN vendedores v ON v.id = a.vendedor_id
     WHERE 1=1
     $filtroData
-    ORDER BY a.data DESC
+    ORDER BY a.data_atendimento DESC
     ";
 
 } else {
@@ -158,7 +157,7 @@ $result = $conn->query($sql);
                     <tbody>
                         <?php while($row = $result->fetch_assoc()): ?>
                         <tr>
-                            <td><?= date('d/m/Y H:i', strtotime($row['data'])) ?></td>
+                            <td><?= date('d/m/Y H:i', strtotime($row['data_atendimento'])) ?></td>
                             <td><?= $row['vendedor'] ?></td>
                             <td><?= $row['cliente'] ?></td>
                             <td class="fw-bold text-success">
