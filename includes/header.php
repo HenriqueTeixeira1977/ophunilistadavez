@@ -109,7 +109,7 @@ include_once __DIR__ . '/../includes/auth.php';
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link nav-atendimento" href="../../pages/atendimentos/atendimentos.php">
+                            <a class="nav-link nav-atendimento" href="../../atendimentos/atendimentos.php">
                                 <i class="bi bi-headset"></i> Atendimentos
                                 <span class="badge bg-light text-primary ms-2 badge-pulse">Novo</span>
                             </a>
@@ -129,7 +129,7 @@ include_once __DIR__ . '/../includes/auth.php';
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link nav-atendimento" href="../../pages/atendimentos/index.php">
+                            <a class="nav-link nav-atendimento" href="../../atendimentos/atendimentos.php">
                                 <i class="bi bi-headset"></i> Atendimentos
                             </a>
                         </li>
