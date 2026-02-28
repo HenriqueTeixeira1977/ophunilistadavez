@@ -55,7 +55,7 @@ if($tipo == 'admin'){
 $result = $conn->query($sql);
 ?>
 
-<?php require_once 'includes/header.php'; ?>
+<?php require_once '../includes/header.php'; ?>
 
 
 <div class="card border-0 shadow-sm mb-4">
