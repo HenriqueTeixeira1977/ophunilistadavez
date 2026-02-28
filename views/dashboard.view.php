@@ -1,3 +1,34 @@
+<style>
+.kpi-card {
+    transition: 0.3s ease;
+    border-radius: 12px;
+}
+
+.kpi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.kpi-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: white;
+}
+
+.bg-purple {
+    background-color: #6f42c1;
+}
+
+.text-purple {
+    color: #6f42c1;
+}
+</style>
+
 <?php require_once __DIR__ . '/../includes/header.php'; ?>
 
 <div class="container py-4">
@@ -76,70 +107,137 @@
 
     </div>
 </div>
-    <!-- KPIs -->
-    <div class="row g-3">
+<!-- KPIs PROFISSIONAIS -->
+<div class="row g-4 mt-1">
 
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body text-center">
-                <small class="text-muted">Atendimentos</small>
-                <h5 class="fw-bold"><?= $AT ?></h5>
+    <!-- Atendimentos -->
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm h-100 kpi-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <small class="text-muted">Atendimentos</small>
+                        <h3 class="fw-bold mb-0 text-primary"><?= $AT ?></h3>
+                    </div>
+                    <div class="kpi-icon bg-primary">
+                        📞
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body text-center">
-                <small class="text-muted">Conversões</small>
-                <h5 class="fw-bold"><?= $CC ?></h5>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body text-center">
-                <small class="text-muted">Taxa Conversão</small>
-                <h5 class="fw-bold"><?= number_format($TXC,1) ?>%</h5>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body text-center">
-                <small class="text-muted">Ticket Médio</small>
-                <h5 class="fw-bold">
-                    R$ <?= number_format($TKM,2,',','.') ?>
-                </h5>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body text-center">
-                <small class="text-muted">Peças</small>
-                <h5 class="fw-bold"><?= $PCS ?></h5>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body text-center">
-                <small class="text-muted">P.A</small>
-                <h5 class="fw-bold"><?= number_format($PA,2) ?></h5>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card bg-success text-white text-center p-3">
-                <small>Comissão</small>
-                <h5 class="fw-bold">
-                    R$ <?= number_format($faturamento * 0.01,2,',','.') ?>
-                </h5>
-            </div>
-        </div>
-
     </div>
 
+    <!-- Conversões -->
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm h-100 kpi-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <small class="text-muted">Conversões</small>
+                        <h3 class="fw-bold mb-0 text-success"><?= $CC ?></h3>
+                    </div>
+                    <div class="kpi-icon bg-success">
+                        💰
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Taxa Conversão -->
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm h-100 kpi-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <small class="text-muted">Taxa Conversão</small>
+                        <h3 class="fw-bold mb-0 text-purple">
+                            <?= number_format($TXC,1) ?>%
+                        </h3>
+                    </div>
+                    <div class="kpi-icon bg-purple">
+                        📊
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ticket Médio -->
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm h-100 kpi-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <small class="text-muted">Ticket Médio</small>
+                        <h3 class="fw-bold mb-0 text-warning">
+                            R$ <?= number_format($TKM,2,',','.') ?>
+                        </h3>
+                    </div>
+                    <div class="kpi-icon bg-warning">
+                        🎟
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Peças -->
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm h-100 kpi-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <small class="text-muted">Peças Vendidas</small>
+                        <h3 class="fw-bold mb-0 text-dark"><?= $PCS ?></h3>
+                    </div>
+                    <div class="kpi-icon bg-dark">
+                        📦
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- P.A -->
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm h-100 kpi-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <small class="text-muted">Peças por Atendimento</small>
+                        <h3 class="fw-bold mb-0 text-info">
+                            <?= number_format($PA,2) ?>
+                        </h3>
+                    </div>
+                    <div class="kpi-icon bg-info">
+                        🧮
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comissão -->
+    <div class="col-md-3">
+        <div class="card border-0 shadow-lg h-100 kpi-card bg-success text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <small>Comissão</small>
+                        <h3 class="fw-bold mb-0">
+                            R$ <?= number_format($faturamento * 0.01,2,',','.') ?>
+                        </h3>
+                    </div>
+                    <div class="kpi-icon bg-light text-success">
+                        💸
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 </div>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
