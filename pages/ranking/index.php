@@ -162,8 +162,8 @@ while($row = $sql->fetch_assoc()){
     <?php endif; endfor; ?>
 </div>
 
-<!--  ==========  TABELA COMPLETA  ==========  -->
 
+<!--  ==========  TABELA COMPLETA  ==========  -->
 <div class="card shadow border-0" style="background:#1e293b;">
     <div class="card-body table-responsive">
 
@@ -187,18 +187,22 @@ while($row = $sql->fetch_assoc()){
                 <tr class="<?= $v['bateu_meta'] ? 'table-success' : '' ?>">   
                     <td><?= $index+1 ?></td>
                     <td><?= $v['nome'] ?></td>
-                    <td style="min-width:150px;">
-                        <div class="progress" style="height:8px;">
-                            <div class="progress-bar 
-                                <?= $v['percentual_meta']>=100?'bg-success':
-                                    ($v['percentual_meta']>=70?'bg-warning':'bg-danger') ?>"
-                                style="width: <?= min($v['percentual_meta'],100) ?>%">
+                        <td style="min-width:180px;">
+                            <div class="progress mb-1" style="height:8px;">
+                                <div class="progress-bar 
+                                    <?= $v['percentual_meta']>=100?'bg-success':
+                                        ($v['percentual_meta']>=70?'bg-warning':'bg-danger') ?>"
+                                    style="width: <?= min($v['percentual_meta'],100) ?>%">
+                                </div>
                             </div>
-                        </div>
-                        <small>
-                            <?= number_format($v['percentual_meta'],1) ?>%
-                        </small>
-                    </td>
+
+                            <small>
+                                R$ <?= number_format($v['faturamento'],2,',','.') ?>
+                                /
+                                R$ <?= number_format($metaPeriodo,2,',','.') ?>
+                                (<?= number_format($v['percentual_meta'],1) ?>%)
+                            </small>
+                        </td>
                     <td class="text-success">
                         R$ <?= number_format($v['faturamento'],2,',','.') ?>
                     </td>
