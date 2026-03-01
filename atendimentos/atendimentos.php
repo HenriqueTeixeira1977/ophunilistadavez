@@ -4,17 +4,12 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 ?>
 
-
-
-
 <?php
 require_once '../config/database.php';
 
 $usuario_id = $_SESSION['usuario_id'] ?? null;
-$tipo = $_SESSION['tipo'] ?? 'vendedor';
+$tipo = strtolower($_SESSION['perfil'] ?? '');
 
-var_dump($_SESSION);
-exit;
 /* ======================
    FILTRO POR PERÍODO
 ====================== */
