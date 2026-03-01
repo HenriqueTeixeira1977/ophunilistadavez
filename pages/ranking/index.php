@@ -147,6 +147,9 @@ while($row = $sql->fetch_assoc()){
                 <h4 class="text-success">
                     R$ <?= number_format($ranking[$i]['faturamento'],2,',','.') ?>
                 </h4>
+                <p class="fw-bold">
+                    🎯 Meta: R$ <?= number_format($metaPeriodo,2,',','.') ?>
+                </p>
 
                 <p class="text-secondary">
                     P.A: <?= number_format($ranking[$i]['pa'],2) ?> |
@@ -156,15 +159,10 @@ while($row = $sql->fetch_assoc()){
             </div>
         </div>
     </div>
-
     <?php endif; endfor; ?>
-
 </div>
 
-
-
-
-<!-- TABELA COMPLETA -->
+<!--  ==========  TABELA COMPLETA  ==========  -->
 
 <div class="card shadow border-0" style="background:#1e293b;">
     <div class="card-body table-responsive">
@@ -187,7 +185,6 @@ while($row = $sql->fetch_assoc()){
             <tbody>
                 <?php foreach($ranking as $index => $v): ?>
                 <tr class="<?= $v['bateu_meta'] ? 'table-success' : '' ?>">   
-                <tr>
                     <td><?= $index+1 ?></td>
                     <td><?= $v['nome'] ?></td>
                     <td style="min-width:150px;">
@@ -215,7 +212,6 @@ while($row = $sql->fetch_assoc()){
                         </span>
                     </td>
                     <td>R$ <?= number_format($v['tkm'],2,',','.') ?></td>
-                </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
