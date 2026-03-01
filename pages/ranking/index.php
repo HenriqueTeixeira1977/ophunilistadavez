@@ -31,6 +31,18 @@ if(isset($_GET['periodo'])){
         $fim = "$ano-$mes-$ultimoDia";
     }
 }
+
+
+/*  ========== QUERIES CALCULO DE METAS ==========  */
+$metaPeriodo = $conn->query("
+    SELECT SUM(meta_vendas) as meta_total
+    FROM metas_diarias
+    WHERE DATE(data_meta) BETWEEN '$inicio' AND '$fim'
+")
+->fetch_assoc()['meta_total'] ?? 0;
+
+
+
 /*  ========== QUERIES PRINCIPAIS ==========  */
 $mesAtual = date('m');
 $anoAtual = date('Y');
@@ -110,18 +122,7 @@ while($row = $sql->fetch_assoc()){
 <div class="row mb-4">
 
     <?php 
-    $metaPeriodo = $conn->query("
-        SELECT SUM(meta_vendas) as meta_total
-        FROM metas_diarias
-        WHERE DATE(data_meta) BETWEEN '$inicio' AND '$fim'
-    ")
-    ->fetch_assoc()['meta_total'] ?? 0;
-
-
-
-
-
-    $posicoes = ['🥇','🥈','🥉'];
+        $posicoes = ['🥇','🥈','🥉'];
         for($i=0; $i<3; $i++):
         if(isset($ranking[$i])):
     ?>
