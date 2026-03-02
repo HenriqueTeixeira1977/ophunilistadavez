@@ -12,13 +12,24 @@ if(!isset($_SESSION['usuario_id'])){
 ?>
 
 <?php
-$fila = $conn->query("
-    SELECT f.posicao, v.nome, v.id, v.status
-    FROM fila f
-    JOIN vendedores v ON f.vendedor_id = v.id
-    WHERE v.ativo = 1
-    ORDER BY f.posicao ASC
-");
+if(isAdmin()){
+    // Admin vê todos
+    $fila = $conn->query("
+        SELECT f.posicao, v.nome, v.id, v.status
+        FROM fila f
+        JOIN vendedores v ON f.vendedor_id = v.id
+        ORDER BY f.posicao ASC
+    ");
+} else {
+    // Vendedor vê apenas ativos
+    $fila = $conn->query("
+        SELECT f.posicao, v.nome, v.id, v.status
+        FROM fila f
+        JOIN vendedores v ON f.vendedor_id = v.id
+        WHERE v.status = 'ativo'
+        ORDER BY f.posicao ASC
+    ");
+}
 ?>
 
 <div class="container py-4">
@@ -43,9 +54,10 @@ $fila = $conn->query("
 
                 <tbody>
                     <?php while($row = $fila->fetch_assoc()): ?>
-                        <tr class="<?= $row['posicao']==1 ? 'table-success fw-bold' : '' ?>">                       
-                        
-                        <td><?= $row['posicao'] ?></td>
+                        <tr class="<?= 
+                            $row['status']=='inativo' ? 'table-secondary text-muted' :
+                            ($row['posicao']==1 ? 'table-success fw-bold' : '') 
+                        ?>">                        <td><?= $row['posicao'] ?></td>
                         <td>
                             <?= $row['nome'] ?>
                             <?php if($row['posicao']==1 && $row['status']=='ativo'): ?>
