@@ -139,7 +139,7 @@ include_once __DIR__ . '/../includes/auth.php';
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../../pages/vendedores/index.php">
-                                Cadastro
+                                Gestão
                             </a></li>
                             <li><a class="dropdown-item" href="../../pages/admin/presencas.php">
                                 Controle de Presenças
