@@ -86,6 +86,29 @@ include_once __DIR__ . '/../includes/auth.php';
         .btn-logout{
             border-radius:20px;
         }
+        .vendedor-card{
+            transition: all .3s ease;
+            border-radius:18px;
+        }
+
+        .vendedor-card:hover{
+            transform: translateY(-6px);
+            box-shadow:0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .avatar-circle{
+            width:45px;
+            height:45px;
+            border-radius:50%;
+            background:linear-gradient(45deg,#0ea5e9,#2563eb);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#fff;
+            font-size:20px;
+        }
+
+
 
         /* Responsividade Melhorada */
         @media(max-width:991px){
