@@ -12,6 +12,16 @@ if(!isset($_SESSION['usuario_id'])){
 ?>
 
 <?php
+    $fila = $conn->query("
+        SELECT f.posicao, v.nome, v.id, v.status
+        FROM fila f
+        JOIN vendedores v ON f.vendedor_id = v.id
+        WHERE v.ativo = 1
+        AND v.na_lista = 1
+        ORDER BY f.posicao ASC
+    ");
+
+/*
 if(isAdmin()){
     // Admin vê todos
     $fila = $conn->query("
@@ -30,6 +40,7 @@ if(isAdmin()){
         ORDER BY f.posicao ASC
     ");
 }
+*/
 ?>
 
 <div class="container py-4">
