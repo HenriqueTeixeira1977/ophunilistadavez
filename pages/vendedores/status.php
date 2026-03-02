@@ -1,18 +1,25 @@
 <?php
 require_once '../../config/database.php';
-session_start();
+require_once '../../includes/auth.php';
 
-if(!isAdmin()) exit;
-
-$id = $_GET['id'];
-$acao = $_GET['acao'];
-
-if($acao == 'ativar'){
-    $conn->query("UPDATE vendedores SET ativo = 1 WHERE id = $id");
+if(!isAdmin()){
+    header("Location: ../../dashboard.php");
+    exit;
 }
 
-if($acao == 'desativar'){
-    $conn->query("UPDATE vendedores SET ativo = 0 WHERE id = $id");
+$id = intval($_GET['id']);
+$acao = $_GET['acao'] ?? '';
+
+if($acao === 'ativar'){
+    $stmt = $conn->prepare("UPDATE vendedores SET ativo = 1 WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+}
+
+if($acao === 'desativar'){
+    $stmt = $conn->prepare("UPDATE vendedores SET ativo = 0 WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
 }
 
 header("Location: index.php");
