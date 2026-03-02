@@ -2,6 +2,10 @@
 require_once '../../config/database.php';
 require_once '../../includes/auth.php';
 
+
+var_dump($_GET);
+exit;
+
 if(!isAdmin()){
     header("Location: ../../dashboard.php");
     exit;
