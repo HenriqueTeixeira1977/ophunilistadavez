@@ -15,29 +15,36 @@ $vendedores = $conn->query("
 
 
 
-<style>
-    .vendedor-card{
-    transition: all .3s ease;
-    border-radius:18px;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .vendedor-card{
+            transition: all .3s ease;
+            border-radius:18px;
+        }
+        .vendedor-card:hover{
+            transform: translateY(-6px);
+            box-shadow:0 12px 30px rgba(0,0,0,0.15);
+        }
 
-.vendedor-card:hover{
-    transform: translateY(-6px);
-    box-shadow:0 12px 30px rgba(0,0,0,0.15);
-}
-
-.avatar-circle{
-    width:45px;
-    height:45px;
-    border-radius:50%;
-    background:linear-gradient(45deg,#0ea5e9,#2563eb);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#fff;
-    font-size:20px;
-}
-</style>
+        .avatar-circle{
+            width:45px;
+            height:45px;
+            border-radius:50%;
+            background:linear-gradient(45deg,#0ea5e9,#2563eb);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#fff;
+            font-size:20px;
+        }
+    </style>
+</head>
+<body>
+    
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h3 class="fw-bold">
@@ -113,4 +120,7 @@ $vendedores = $conn->query("
     </div>
     <?php endwhile; ?>
 </div>
+</body>
+</html>
+
 <?php require_once '../../includes/footer.php'; ?>
