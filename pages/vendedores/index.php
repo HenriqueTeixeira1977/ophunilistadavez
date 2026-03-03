@@ -114,7 +114,7 @@ $vendedores = $conn->query("
                 </div>
             </div>
         </div>
-        <?php endwhile; ?>
+
 
         <!--  ========== CARD PRINCIPAL (TESTE) ==========  -->
         <div class="col-md-6 col-lg-4">
