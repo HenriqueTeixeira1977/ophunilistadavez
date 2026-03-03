@@ -93,14 +93,14 @@ ini_set('display_errors', 1);
                 SELECT SUM(valor) as total 
                 FROM atendimentos 
                 WHERE vendedor_id = {$v['id']}
-                AND MONTH(data) = MONTH(CURDATE())
+                AND MONTH(data_atendimento) = MONTH(CURDATE())
             ")->fetch_assoc();
 
             $totalVendas = $vendas['total'] ?? 0;
 
 
 
-            
+
 
             // FALTAS
             $faltas = $conn->query("
