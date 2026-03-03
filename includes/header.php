@@ -164,10 +164,10 @@ include_once __DIR__ . '/../includes/auth.php';
                             <li><a class="dropdown-item" href="../../pages/vendedores/index.php">
                                 Gestão
                             </a></li>
-                            <li><a class="dropdown-item" href="../../pages/admin/presencas.php">
+                            <li><a class="dropdown-item" href="../../pages/vendedores/presencas.php">
                                 Controle de Presenças
                             </a></li>
-                            <li><a class="dropdown-item" href="../../pages/admin/escala.php">
+                            <li><a class="dropdown-item" href="../../pages/vendedores/escala.php">
                                 Escala Semanal
                             </a></li>
                         </ul>
