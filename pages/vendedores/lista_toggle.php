@@ -25,3 +25,8 @@ if($acao === 'adicionar'){
 
 header("Location: index.php");
 exit;
+
+echo $stmt->affected_rows;
+exit;
+
+?>
