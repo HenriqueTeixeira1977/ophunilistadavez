@@ -67,7 +67,7 @@ ini_set('display_errors', 1);
         <?php
             // META DO MÊS
             $meta = $conn->query("
-                SELECT meta FROM metas 
+                SELECT metas_diarias FROM metas_diarias 
                 WHERE vendedor_id = {$v['id']} 
                 AND MONTH(data) = MONTH(CURDATE())
             ")->fetch_assoc();
