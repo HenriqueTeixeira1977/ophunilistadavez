@@ -1,5 +1,6 @@
 <?php
 require_once '../../includes/header.php';
+require_once __DIR__ . '/../../config/database.php';
 
 if(!isAdmin()){
     header("Location: ../../dashboard.php");
@@ -11,6 +12,10 @@ $vendedores = $conn->query("
     FROM vendedores
     ORDER BY nome
 ");
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 ?>
 
 
@@ -121,7 +126,7 @@ $vendedores = $conn->query("
                         </div>
                         <div>
                             <small class="text-muted">Faltas</small><br>
-                            <strong>R$ <?= number_format($totalVendas,2,',','.') ?></strong>
+                            <strong><?= $totalFaltas ?></strong>
                         </div>
                     </div>
 
