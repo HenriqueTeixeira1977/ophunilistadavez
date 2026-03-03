@@ -121,13 +121,13 @@ $vendedores = $conn->query("
                         
                         
                         
-                        <?php if($v['na_lista'] == 1): ?>
-                            <a href="status.php?id=<?= $v['id'] ?>&acao=remover"
+                        <?php if($ativo): ?>
+                            <a href="status.php?id=<?= $v['id'] ?>&acao=desativar"
                             class="btn btn-sm btn-outline-danger">
                                 ❌ Remover da Lista
                             </a>
                         <?php else: ?>
-                            <a href="status.php?id=<?= $v['id'] ?>&acao=adicionar"
+                            <a href="status.php?id=<?= $v['id'] ?>&acao=ativar"
                             class="btn btn-sm btn-outline-success">
                                 ➕ Habilitar na Lista
                             </a>
