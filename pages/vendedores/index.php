@@ -42,9 +42,7 @@ $vendedores = $conn->query("
         }
     </style>
 </head>
-<body>
-    
-
+<body>  
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="fw-bold">
             <i class="bi bi-people"></i> Gestão de Vendedores
@@ -54,7 +52,6 @@ $vendedores = $conn->query("
             <i class="bi bi-plus-lg"></i> Novo Vendedor
         </a>
     </div>
-
     <div class="row g-4">
         <?php while($v = $vendedores->fetch_assoc()): 
 
@@ -67,62 +64,45 @@ $vendedores = $conn->query("
         <!--  ========== CARD PRINCIPAL (TESTE) ==========  -->
         <div class="col-md-6 col-lg-4">
             <div class="card vendedor-card border-0 shadow-sm h-100">
-
                 <div class="card-body">
-
                     <div class="d-flex align-items-center mb-3">
-
                         <div class="avatar-circle me-3">
                             <i class="bi bi-person"></i>
                         </div>
-
                         <div>
                             <h5 class="fw-bold mb-0"><?= $v['nome'] ?></h5>
                             <small class="text-muted"><?= ucfirst($v['perfil']) ?></small>
                         </div>
-
                     </div>
-
                     <div class="mb-3">
-
                         <span class="badge bg-<?= $corStatus ?>">
                             <?= $textoStatus ?>
                         </span>
-
                     </div>
-
                     <div class="d-flex justify-content-between text-center mb-3">
-
                         <div>
                             <small class="text-muted">Meta</small><br>
                             <strong>--</strong>
                         </div>
-
                         <div>
                             <small class="text-muted">Vendas</small><br>
                             <strong>--</strong>
                         </div>
-
                         <div>
                             <small class="text-muted">Faltas</small><br>
                             <strong>--</strong>
                         </div>
-
                     </div>
-
                     <div class="d-flex flex-wrap gap-2">
-
                         <a href="editar.php?id=<?= $v['id'] ?>" 
                         class="btn btn-sm btn-outline-primary">
                             <i class="bi bi-pencil"></i>
                         </a>
-
-                        <a href="../admin/presencas.php?vendedor=<?= $v['id'] ?>" 
+                        <a href="presencas.php?vendedor=<?= $v['id'] ?>" 
                         class="btn btn-sm btn-outline-success">
                             <i class="bi bi-calendar-check"></i>
                         </a>
-
-                        <a href="../admin/escala.php?vendedor=<?= $v['id'] ?>" 
+                        <a href="escala.php?vendedor=<?= $v['id'] ?>" 
                         class="btn btn-sm btn-outline-warning">
                             <i class="bi bi-clock"></i>
                         </a>
@@ -142,7 +122,6 @@ $vendedores = $conn->query("
             </div>
         </div>      
         <?php endwhile; ?>
-
     </div>
 </body>
 </html>
