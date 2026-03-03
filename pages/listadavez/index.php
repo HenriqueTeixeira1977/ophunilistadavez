@@ -68,51 +68,47 @@ if(isAdmin()){
                         <tr class="<?= 
                             $row['status']=='inativo' ? 'table-secondary text-muted' :
                             ($row['posicao']==1 ? 'table-success fw-bold' : '') 
-                        ?>">                        <td><?= $row['posicao'] ?></td>
-                        <td>
-                            <?= $row['nome'] ?>
-                            <?php if($row['posicao']==1 && $row['status']=='ativo'): ?>
-                               <span class="badge bg-success ms-2">NA VEZ</span>
-                          <?php endif; ?>
-                        </td>
-                        <td>
-                            <?php if($row['status']=='ativo'): ?>
-                                <span class="badge bg-success">Ativo</span>
-                            <?php else: ?>
-                                <span class="badge bg-secondary">Inativo</span>
-                            <?php endif; ?>
-                        </td>
-                        <td class="d-flex gap-2 justify-content-center flex-wrap">
-
-                            <a href="../../atendimentos/registrar.php?id=<?= $row['id'] ?>"
-                                class="btn btn-sm btn-primary">
-                                📝 Atendimento
-                            </a>
-
-                            <!-- PASSAR (pode deixar para todos ou restringir se quiser) -->
-                            <a href="passar_vez.php?id=<?= $row['id'] ?>"
-                                class="btn btn-sm btn-warning">
-                                🔄 Passar
-                            </a>
-
-                            <?php if(isAdmin()): ?>
+                            ?>">                        
+                            <td><?= $row['posicao'] ?></td>
+                            <td>
+                                <?= $row['nome'] ?>
+                                <?php if($row['posicao']==1 && $row['status']=='ativo'): ?>
+                                <span class="badge bg-success ms-2">NA VEZ</span>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <?php if($row['status']=='ativo'): ?>
+                                    <span class="badge bg-success">Ativo</span>
+                                <?php else: ?>
+                                    <span class="badge bg-secondary">Inativo</span>
+                                <?php endif; ?>
+                            </td>
+                            <td class="d-flex gap-2 justify-content-center flex-wrap">
+                                <a href="../../atendimentos/registrar.php?id=<?= $row['id'] ?>"
+                                    class="btn btn-sm btn-primary">
+                                    📝 Atendimento
+                                </a>
+                                <!-- PASSAR (pode deixar para todos ou restringir se quiser) -->
+                                <a href="passar_vez.php?id=<?= $row['id'] ?>"
+                                    class="btn btn-sm btn-warning">
+                                    🔄 Passar
+                                </a>
+                                <?php if(isAdmin()): ?>
 
                                 <?php if($row['status']=='ativo'): ?>
                                     <a href="alterar_status.php?id=<?= $row['id'] ?>&acao=pausar"
                                         class="btn btn-sm btn-outline-danger">
                                         ⏸ Pausar
                                     </a>
-                                <?php else: ?>
-                                    <a href="alterar_status.php?id=<?= $row['id'] ?>&acao=ativar"
-                                        class="btn btn-sm btn-outline-success">
-                                        ▶ Habilitar
-                                    </a>
+                                    <?php else: ?>
+                                        <a href="alterar_status.php?id=<?= $row['id'] ?>&acao=ativar"
+                                            class="btn btn-sm btn-outline-success">
+                                            ▶ Habilitar
+                                        </a>
+                                    <?php endif; ?>
                                 <?php endif; ?>
-
-                            <?php endif; ?>
-
-                        </td>                    
-                    </tr>
+                            </td>                    
+                        </tr>
                     <?php endwhile; ?>
                 </tbody>
             </table>

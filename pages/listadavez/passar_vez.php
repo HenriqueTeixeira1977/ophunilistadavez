@@ -1,32 +1,45 @@
 <?php
-include '../../config/database.php';
+require_once '../../config/database.php';
+require_once '../../includes/auth.php';
 
-$id = $_GET['id'];
+if(!isset($_SESSION['usuario_id'])){
+    header("Location: ../../index.php");
+    exit;
+}
 
-// Pega posição atual
-$atual = $conn->query("
-    SELECT posicao FROM fila WHERE vendedor_id = $id
-")->fetch_assoc()['posicao'];
-
-// Pega última posição
-$ultima = $conn->query("
-    SELECT MAX(posicao) as max FROM fila
-")->fetch_assoc()['max'];
-
-// Move para última
-$conn->query("
-    UPDATE fila 
-    SET posicao = $ultima + 1
-    WHERE vendedor_id = $id
+// Buscar todos da fila ativos e na_lista
+$fila = $conn->query("
+    SELECT f.id, f.vendedor_id
+    FROM fila f
+    JOIN vendedores v ON f.vendedor_id = v.id
+    WHERE v.ativo = 1 AND v.na_lista = 1
+    ORDER BY f.posicao ASC
 ");
 
-// Reorganiza sequencial
-$conn->query("SET @p = 0");
+$ids = [];
+while($row = $fila->fetch_assoc()){
+    $ids[] = $row;
+}
 
-$conn->query("
-    UPDATE fila 
-    SET posicao = (@p := @p + 1)
-    ORDER BY posicao
-");
+if(count($ids) > 1){
+
+    // Remove primeiro
+    $primeiro = array_shift($ids);
+
+    // Coloca ele no final
+    $ids[] = $primeiro;
+
+    // Reorganiza posições
+    $pos = 1;
+    foreach($ids as $item){
+        $conn->query("
+            UPDATE fila 
+            SET posicao = $pos 
+            WHERE id = {$item['id']}
+        ");
+        $pos++;
+    }
+}
 
 header("Location: index.php");
+exit;
