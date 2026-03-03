@@ -64,15 +64,29 @@ ini_set('display_errors', 1);
             $corStatus = $ativo ? 'success' : 'secondary';
             $textoStatus = $ativo ? 'Ativo' : 'Inativo';
         ?>
+
+
+
+
         <?php
-            // META DO MÊS
-            $meta = $conn->query("
-                SELECT meta_vendas FROM metas_diarias 
-                WHERE vendedor_id = {$v['id']} 
-                AND MONTH(data) = MONTH(CURDATE())
+            // META GLOBAL DO MÊS (LOJA)
+            $metaMes = $conn->query("
+                SELECT SUM(meta_vendas) as total_meta
+                FROM metas_diarias
+                WHERE MONTH(data_meta) = MONTH(CURDATE())
             ")->fetch_assoc();
 
-            $metaValor = $meta['meta'] ?? 0;
+            $metaLoja = $metaMes['total_meta'] ?? 0;
+
+            $vendedoresAtivos = $conn->query("
+                SELECT COUNT(*) as total
+                FROM vendedores
+                WHERE ativo = 1 AND na_lista = 1
+            ")->fetch_assoc();
+
+            $totalVendedores = $vendedoresAtivos['total'] ?? 1;
+
+
 
             // VENDAS DO MÊS
             $vendas = $conn->query("
@@ -84,6 +98,10 @@ ini_set('display_errors', 1);
 
             $totalVendas = $vendas['total'] ?? 0;
 
+
+
+            
+
             // FALTAS
             $faltas = $conn->query("
                 SELECT COUNT(*) as total 
@@ -94,6 +112,12 @@ ini_set('display_errors', 1);
             ")->fetch_assoc();
 
             $totalFaltas = $faltas['total'] ?? 0;
+
+
+            $metaValor = $totalVendedores > 0 
+                ? $metaLoja / $totalVendedores 
+                : 0;
+            
         ?>
 
 
