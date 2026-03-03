@@ -59,7 +59,37 @@ $vendedores = $conn->query("
             $corStatus = $ativo ? 'success' : 'secondary';
             $textoStatus = $ativo ? 'Ativo' : 'Inativo';
         ?>
+        <?php
+            // META DO MÊS
+            $meta = $conn->query("
+                SELECT meta FROM metas 
+                WHERE vendedor_id = {$v['id']} 
+                AND MONTH(data) = MONTH(CURDATE())
+            ")->fetch_assoc();
 
+            $metaValor = $meta['meta'] ?? 0;
+
+            // VENDAS DO MÊS
+            $vendas = $conn->query("
+                SELECT SUM(valor) as total 
+                FROM atendimentos 
+                WHERE vendedor_id = {$v['id']}
+                AND MONTH(data) = MONTH(CURDATE())
+            ")->fetch_assoc();
+
+            $totalVendas = $vendas['total'] ?? 0;
+
+            // FALTAS
+            $faltas = $conn->query("
+                SELECT COUNT(*) as total 
+                FROM presencas 
+                WHERE vendedor_id = {$v['id']}
+                AND status = 'falta'
+                AND MONTH(data) = MONTH(CURDATE())
+            ")->fetch_assoc();
+
+            $totalFaltas = $faltas['total'] ?? 0;
+        ?>
 
 
         <!--  ========== CARD PRINCIPAL (TESTE) ==========  -->
@@ -83,30 +113,36 @@ $vendedores = $conn->query("
                     <div class="d-flex justify-content-between text-center mb-3">
                         <div>
                             <small class="text-muted">Meta</small><br>
-                            <strong>--</strong>
+                            <strong>R$ <?= number_format($metaValor,2,',','.') ?></strong>
                         </div>
                         <div>
                             <small class="text-muted">Vendas</small><br>
-                            <strong>--</strong>
+                            <strong>R$ <?= number_format($totalVendas,2,',','.') ?></strong>
                         </div>
                         <div>
                             <small class="text-muted">Faltas</small><br>
-                            <strong>--</strong>
+                            <strong>R$ <?= number_format($totalVendas,2,',','.') ?></strong>
                         </div>
                     </div>
 
 
                     <div class="d-flex flex-wrap gap-2">
                         <a href="editar.php?id=<?= $v['id'] ?>" 
-                            class="btn btn-sm btn-outline-primary">
+                            class="btn btn-sm btn-outline-primary"
+                            data-bs-toggle="tooltip"
+                            title="Editar">                            
                             <i class="bi bi-pencil"></i>
                         </a>
                         <a href="presencas.php?vendedor=<?= $v['id'] ?>" 
-                            class="btn btn-sm btn-outline-success">
+                            class="btn btn-sm btn-outline-success"
+                            data-bs-toggle="tooltip"
+                            title="Presença">
                             <i class="bi bi-calendar-check"></i>
                         </a>
                         <a href="escala.php?vendedor=<?= $v['id'] ?>" 
-                            class="btn btn-sm btn-outline-warning">
+                            class="btn btn-sm btn-outline-warning"
+                            data-bs-toggle="tooltip"
+                            title="Escala">
                             <i class="bi bi-clock"></i>
                         </a>               
                         
@@ -134,6 +170,16 @@ $vendedores = $conn->query("
                             </a>
                         <?php endif; ?>
                         -->
+                        
+                        <a href="excluir.php?id=<?= $v['id'] ?>"
+                            class="btn btn-sm btn-outline-danger"
+                            onclick="return confirm('Deseja excluir este vendedor?')"
+                            data-bs-toggle="tooltip"
+                            title="Excluir Vendedor">
+                            <i class="bi bi-trash"></i>
+                        </a>        
+
+
                     </div>
                 </div>
             </div>
@@ -142,5 +188,12 @@ $vendedores = $conn->query("
     </div>
 </body>
 </html>
+
+<script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+</script>
 
 <?php require_once '../../includes/footer.php'; ?>
