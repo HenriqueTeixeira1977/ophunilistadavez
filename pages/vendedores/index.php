@@ -106,20 +106,7 @@ $vendedores = $conn->query("
                         <a href="escala.php?vendedor=<?= $v['id'] ?>" 
                         class="btn btn-sm btn-outline-warning">
                             <i class="bi bi-clock"></i>
-                        </a>
-                        <?php if($v['na_lista'] == 1): ?>
-                            <a href="lista_toggle.php?id=<?= $v['id'] ?>&acao=remover"
-                            class="btn btn-sm btn-outline-danger">
-                                ❌ Remover da Lista
-                            </a>
-                        <?php else: ?>
-                            <a href="lista_toggle.php?id=<?= $v['id'] ?>&acao=adicionar"
-                            class="btn btn-sm btn-outline-success">
-                                ➕ Habilitar na Lista
-                            </a>
-                        <?php endif; ?>                        
-                        
-                        
+                        </a>               
                         
                         <?php if($ativo): ?>
                             <a href="status.php?id=<?= $v['id'] ?>&acao=desativar"
@@ -132,9 +119,6 @@ $vendedores = $conn->query("
                                 ➕ Habilitar na Lista
                             </a>
                         <?php endif; ?>
-
-
-
                         
                         <?php if($ativo): ?>
                             <a href="status.php?id=<?= $v['id'] ?>&acao=desativar" 
@@ -147,7 +131,6 @@ $vendedores = $conn->query("
                                 <i class="bi bi-check-circle"></i>
                             </a>
                         <?php endif; ?>
-
                     </div>
                 </div>
             </div>
