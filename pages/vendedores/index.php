@@ -94,43 +94,46 @@ $vendedores = $conn->query("
                             <strong>--</strong>
                         </div>
                     </div>
+
+
                     <div class="d-flex flex-wrap gap-2">
                         <a href="editar.php?id=<?= $v['id'] ?>" 
-                        class="btn btn-sm btn-outline-primary">
+                            class="btn btn-sm btn-outline-primary">
                             <i class="bi bi-pencil"></i>
                         </a>
                         <a href="presencas.php?vendedor=<?= $v['id'] ?>" 
-                        class="btn btn-sm btn-outline-success">
+                            class="btn btn-sm btn-outline-success">
                             <i class="bi bi-calendar-check"></i>
                         </a>
                         <a href="escala.php?vendedor=<?= $v['id'] ?>" 
-                        class="btn btn-sm btn-outline-warning">
+                            class="btn btn-sm btn-outline-warning">
                             <i class="bi bi-clock"></i>
                         </a>               
                         
                         <?php if($ativo): ?>
                             <a href="status.php?id=<?= $v['id'] ?>&acao=desativar"
-                            class="btn btn-sm btn-outline-danger">
+                                class="btn btn-sm btn-outline-danger">
                                 ❌ Remover da Lista
                             </a>
                         <?php else: ?>
                             <a href="status.php?id=<?= $v['id'] ?>&acao=ativar"
-                            class="btn btn-sm btn-outline-success">
+                                class="btn btn-sm btn-outline-success">
                                 ➕ Habilitar na Lista
                             </a>
                         <?php endif; ?>
-                        
+                        <!--
                         <?php if($ativo): ?>
                             <a href="status.php?id=<?= $v['id'] ?>&acao=desativar" 
-                            class="btn btn-sm btn-outline-danger">
+                                class="btn btn-sm btn-outline-danger">
                                 <i class="bi bi-x-circle"></i>
                             </a>
                         <?php else: ?>
                             <a href="status.php?id=<?= $v['id'] ?>&acao=ativar" 
-                            class="btn btn-sm btn-outline-success">
+                                class="btn btn-sm btn-outline-success">
                                 <i class="bi bi-check-circle"></i>
                             </a>
                         <?php endif; ?>
+                        -->
                     </div>
                 </div>
             </div>
