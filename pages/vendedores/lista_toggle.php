@@ -1,9 +1,5 @@
 <?php
 
-var_dump($_GET);
-exit;
-
-
 require_once '../../config/database.php';
 require_once '../../includes/auth.php';
 
