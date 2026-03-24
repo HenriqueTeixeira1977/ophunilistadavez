@@ -182,7 +182,15 @@ include_once __DIR__ . '/../includes/auth.php';
                             <i class="bi bi-headset"></i> Atendimentos
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/modules/clientes/clientes.php">
+                            <i class="bi bi-people"></i> Clientes
+                        </a>
+                    </li>
+
                     <?php endif; ?>
+
                     <?php if(isVendedor()): ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../../vendedor_dashboard.php">
