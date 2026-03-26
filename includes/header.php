@@ -184,7 +184,7 @@ include_once __DIR__ . '/../includes/auth.php';
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/modules/clientes/clientes.php">
+                        <a class="nav-link" href="../../modules/clientes/clientes.php">
                             <i class="bi bi-people"></i> Clientes
                         </a>
                     </li>
