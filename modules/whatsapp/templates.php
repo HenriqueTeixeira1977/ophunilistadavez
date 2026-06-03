@@ -88,3 +88,4 @@ $templates = $pdo->query("SELECT * FROM templates_whatsapp ORDER BY id DESC")->f
 </div>
 
 <?php require_once '../../includes/footer.php'; ?>
+

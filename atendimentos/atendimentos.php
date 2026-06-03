@@ -223,8 +223,11 @@ $result = $conn->query($sql);
                                             <div class="mb-3">
                                                 <label>Resultado</label>
                                                 <select name="resultado" class="form-select">
-                                                    <option <?= $row['resultado']=='Venda'?'selected':'' ?>>Venda</option>
-                                                    <option <?= $row['resultado']=='Não comprou'?'selected':'' ?>>Não comprou</option>
+                                                    <option <?= $row['resultado']=='Vendido'?'selected':'' ?>>Vendido</option>
+                                                    <option <?= $row['resultado']=='Esgotado'?'selected':'' ?>>Produto Esgotado</option>
+                                                    <option <?= $row['resultado']=='Reservado'?'selected':'' ?>>Reservado</option>
+                                                    <option <?= $row['resultado']=='Solicitado DOC'?'selected':'' ?>>Solicitado DOC</option>
+                                                    <option <?= $row['resultado']=='Pesquisa'?'selected':'' ?>>Pesquisa</option>
                                                     <option <?= $row['resultado']=='Troca com diferença'?'selected':'' ?>>Troca com diferença</option>
                                                     <option <?= $row['resultado']=='Troca sem diferença'?'selected':'' ?>>Troca sem diferença</option>
                                                 </select>
