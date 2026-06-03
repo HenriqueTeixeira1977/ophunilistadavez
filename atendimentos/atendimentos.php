@@ -223,7 +223,7 @@ $result = $conn->query($sql);
                                             <div class="mb-3">
                                                 <label>Resultado</label>
                                                 <select name="resultado" class="form-select">
-                                                    <option <?= $row['resultado']=='Vendido'?'selected':'' ?>>Vendido</option>
+                                                    <option <?= $row['resultado']=='Venda'?'selected':'' ?>>Venda</option>
                                                     <option <?= $row['resultado']=='Esgotado'?'selected':'' ?>>Produto Esgotado</option>
                                                     <option <?= $row['resultado']=='Reservado'?'selected':'' ?>>Reservado</option>
                                                     <option <?= $row['resultado']=='Solicitado DOC'?'selected':'' ?>>Solicitado DOC</option>

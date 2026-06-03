@@ -81,7 +81,7 @@ if(!$vendedor){
                             <label class="form-label fw-semibold">📊 Resultado</label>
                             <select name="resultado" 
                                     class="form-select rounded-3" required>
-                                <option value="Vendido">Vendido</option>
+                                <option value="Venda">Venda</option>
                                 <option value="Esgotado">Esgotado</option>
                                 <option value="Reservado">Reservado</option>
                                 <option value="Solicitado DOC">Solicitado DOC</option>
