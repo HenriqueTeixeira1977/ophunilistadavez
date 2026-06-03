@@ -81,10 +81,16 @@ if(!$vendedor){
                             <label class="form-label fw-semibold">📊 Resultado</label>
                             <select name="resultado" 
                                     class="form-select rounded-3" required>
-                                <option value="Venda">Venda</option>
-                                <option value="Não comprou">Não comprou</option>
-                                <option value="Troca com dinheiro">Troca com diferença</option>
+                                <option value="Vendido">Vendido</option>
+                                <option value="Esgotado">Esgotado</option>
+                                <option value="Reservado">Reservado</option>
+                                <option value="Solicitado DOC">Solicitado DOC</option>
+                                <option value="Pesquisa">Pesquisa</option>
+                                <option value="Troca com diferenca">Troca com diferença</option>
                                 <option value="Troca sem diferenca">Troca sem diferença</option>
+
+
+                                
                             </select>
                         </div>
 
