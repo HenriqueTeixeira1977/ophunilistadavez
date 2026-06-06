@@ -81,8 +81,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 </div>
 
 <div class="mb-3">
-<label class="form-label">Senha *</label>
-<input type="password" name="senha" class="form-control" required>
+    <label class="form-label">Senha *</label>
+    <input type="password" name="senha" class="form-control" required>
 </div>
 
 <div class="mb-4">
